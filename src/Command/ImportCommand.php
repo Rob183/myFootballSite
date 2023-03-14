@@ -8,7 +8,9 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use Symfony\Component\Console\Input\InputArgument;
 use Pimcore\Model\DataObject\FootballPlayer;
-use Pimcore\Model\Object\Service;
+use \Pimcore\Model\Element\Service;
+
+
 
 
 
@@ -34,6 +36,9 @@ class ImportCommand extends Command
         $headers = [];
         $data = [];
 
+        $test = new FootballPlayer();
+        $test->save();
+
         // Lesen der Spaltenüberschriften
         foreach (range('A', $highestColumn) as $column) {
             $headers[] = $worksheet->getCell($column . '1')->getValue();
@@ -48,34 +53,33 @@ class ImportCommand extends Command
             $data[] = $rowData;
         }
 
+
         // Konvertieren der Daten in FootballPlayer-Objekte
         $footballPlayers = [];
         foreach ($data as $row) {
             $footballPlayer = new FootballPlayer();
-            // $id = uniqid();
-            // $footballPlayer->setId($id);
-
-            $footballPlayer->setKey(\Pimcore\Model\Element\Service::getValidKey(uniqid(), 'object'));
+            // $footballPlayer->setKey(\Pimcore\Model\Element\Service::getValidKey(uniqid(), 'object'));
             $footballPlayer->setModificationDate(time());
+
+            // $output->writeln($row['Position']);
 
             $footballPlayer->setName($row['Name']);
             $footballPlayer->setNumber($row['Spielernummer']);
             $footballPlayer->setAge($row['Alter']);
             $footballPlayer->setPosition($row['Position']);
+            // $footballPlayer->save();
 
             $footballPlayers[] = $footballPlayer;
 
+            $service = new Service();
+            $service->create($footballPlayer);
 
         }
 
         // Speichern der Daten in der Datenbank
-        foreach ($footballPlayers as $footballPlayer) {
-            // $output->writeln($footballPlayers[0].get_class());
-            // $footballPlayer->save(["versionNote" => "my new version"]);
-
-            $service = new Service();
-            $service->create($footballPlayer);
-        }
+        // foreach ($footballPlayers as $footballPlayer) {
+        //     // $footballPlayer->save();
+        // }
 
         $output->writeln('Daten erfolgreich importiert.');
 
