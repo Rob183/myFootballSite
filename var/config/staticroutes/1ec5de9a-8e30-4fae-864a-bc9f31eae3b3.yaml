@@ -1,0 +1,15 @@
+pimcore:
+    staticroutes:
+        definitions:
+            1ec5de9a-8e30-4fae-864a-bc9f31eae3b3:
+                name: ''
+                pattern: null
+                reverse: null
+                controller: null
+                variables: null
+                defaults: null
+                siteId: {  }
+                methods: null
+                priority: 0
+                creationDate: 1678698027
+                modificationDate: 1678698027

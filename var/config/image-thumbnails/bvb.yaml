@@ -1,0 +1,26 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    bvb:
+                        items:
+                            -
+                                method: resize
+                                arguments:
+                                    width: 400
+                                    height: 400
+                        medias: {  }
+                        name: bvb
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: 0.0
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1678638505
+                        creationDate: 1678460506
+                        preserveAnimation: false

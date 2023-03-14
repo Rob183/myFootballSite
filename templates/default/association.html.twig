@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet" />
+
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+
+    <title>Document</title>
+  </head>
+  <body>
+    <style type="text/css">
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: 'Lucida Sans Unicode', Arial, sans-serif;
+        font-size: 14px;
+      }
+      
+      #site {
+        margin: 0 auto;
+        width: 600px;
+        padding: 30px 0 0 0;
+        color: #65615e;
+        background-color: blanchedalmond;
+        padding: 5vh;
+      }
+      
+      h1,
+      h2,
+      h3 {
+        font-size: 18px;
+        padding: 0 0 5px 0;
+        border-bottom: 1px solid #001428;
+        margin-bottom: 5px;
+      }
+      
+      h3 {
+        font-size: 14px;
+        padding: 15px 0 5px 0;
+        margin-bottom: 5px;
+        border-color: #cccccc;
+      }
+      
+      img {
+        border: 0;
+      }
+      
+      p {
+        padding: 0 0 5px 0;
+      }
+      
+      a {
+        color: #000;
+      }
+      
+      #logo {
+        text-align: center;
+        padding: 50px 0;
+      }
+      
+      #logo hr {
+        display: block;
+        height: 1px;
+        overflow: hidden;
+        background: #bbb;
+        border: 0;
+        padding: 0;
+        margin: 30px 0 20px 0;
+      }
+      
+      .claim {
+        text-transform: uppercase;
+        color: #bbb;
+      }
+      
+      #site ul {
+        padding: 10px 0 10px 20px;
+        list-style: circle;
+      }
+      
+      .buttons {
+        margin-bottom: 100px;
+        text-align: center;
+      }
+      
+      .buttons a {
+        display: inline-block;
+        background: #6428b4;
+        color: #fff;
+        padding: 5px 10px;
+        margin-right: 10px;
+        width: 40%;
+        border-radius: 2px;
+        text-decoration: none;
+      }
+      
+      .buttons a:hover {
+        background: #1c8bc1;
+      }
+      
+      .buttons a:last-child {
+        margin: 0;
+      }
+    </style>
+
+    {% set foundingDate = object.getFoundingDate() %}
+    {% if object.getLocation() %}
+      {% set lat_long = object.getLocation() %}
+      {% set latitude = lat_long.getLatitude() %}
+      {% set longitude = lat_long.getLongitude() %}
+      {# Latitude: {{ latitude }}
+      Longitude: {{ longitude }} #}
+    {% endif %}
+
+    <div id="site">
+      <h2>Name: {{ object.getName() }}</h2>
+      {% if object.getLogo() is not empty %}
+        {% set logoPath = object.getLogo() %}
+        <br />
+        <img class="pb-3" src="../var/assets{{ logoPath }}" style="width: 20%;" alt="{{ asset(logoPath) }}" />
+      {% endif %}
+      <h2>Trainer: {{ object.getTrainer() }}</h2>
+      <ul>
+        <h1>Spieler:</h1>
+        {% if object.getPlayers() is not empty %}
+          <ul>
+            {% for player in object.getPlayers() %}
+              <li>Name: {{ player.getName() }}</li>
+              <li>Nummer: {{ player.getNumber() }}</li>
+              <li>Alter: {{ player.getAge() }}</li>
+              <li>Position: {{ player.getPosition() }}</li>
+              <br />
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>Keine Spieler gefunden.</p>
+        {% endif %}
+      </ul>
+      <h2 id="long">{{ longitude }}</h2>
+      <h2 id="lat">{{ latitude }}</h2>
+      <h2>Standort: {{ object.getLocation() }}</h2>
+      <h2>Gründungsjahr: {{ foundingDate.toDateString() }}</h2>
+    </div>
+    {# <div style="width: 640px; height: 480px" id="mapContainer"></div> #}
+
+    {# {% block javascripts %}
+      <script>
+        var platform = new H.service.Platform({
+          apikey: 'a6YzrXKoxL7xV3bf1LL3Kg'
+        })
+        
+        // Obtain the default map types from the platform object:
+        var defaultLayers = platform.createDefaultLayers()
+        
+        var long = document.getElementById('long')
+        var lat = document.getElementById('lat')
+        console.log(long)
+        console.log(lat)
+        
+        // Instantiate (and display) a map object:
+        var map = new H.Map(document.getElementById('mapContainer'), defaultLayers.vector.normal.map, {
+          zoom: 10,
+          center: { lat: 52.5, lng: 13.4 }
+        })
+      </script>
+    {% endblock %} #}
+  </body>
+</html>

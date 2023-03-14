@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                923815ae-547d-4964-8e37-d518ab41d96d:
+                    name: Test
+                    group: ''
+                    controller: 'App\Controller\FootballController::defaultAction'
+                    template: null
+                    type: page
+                    priority: 0
+                    creationDate: 1678270481
+                    modificationDate: 1678270665
+                    staticGeneratorEnabled: null
