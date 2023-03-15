@@ -10,10 +10,10 @@ services:
         volumes:
             - pimcore-database:/var/lib/mysql
         environment:
-            MYSQL_ROOT_PASSWORD: ROOT
-            MYSQL_DATABASE: pimcore
-            MYSQL_USER: pimcore
-            MYSQL_PASSWORD: pimcore
+            - MYSQL_ROOT_PASSWORD=ROOT
+            - MYSQL_DATABASE=pimcore
+            - MYSQL_USER=pimcore
+            - MYSQL_PASSWORD=pimcore
 
     nginx:
         image: nginx:stable-alpine
