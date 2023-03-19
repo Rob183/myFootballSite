@@ -37,8 +37,8 @@ class DefaultController extends FrontendController
         ]);
     }
 
-    public function footballAction(Request $request): Response
-    {
+    // public function footballAction(Request $request): Response
+    // {
         // $objects = Association::getList(['parentId' => 5]);
 
         // Objekt-ID des Pimcore-Objekts, das Sie anzeigen möchten
@@ -58,6 +58,6 @@ class DefaultController extends FrontendController
         //     // 'description' => $description,
         //     // 'image' => $image,
         // ]);
-        return null;
-    }
+        // return ;
+    // }
 }
