@@ -5,14 +5,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use Symfony\Component\Console\Input\InputArgument;
 use Pimcore\Model\DataObject\FootballPlayer;
 use \Pimcore\Model\Element\Service;
-
-
-
-
 
 class ImportCommand extends Command
 {

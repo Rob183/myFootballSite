@@ -16,10 +16,14 @@ class DefaultController extends FrontendController
 
     public function defaultAction(Request $request): Response
     {
-        return $this->render('default/default.html.twig');
+        // ID der FußballClubs
+        $objects = Association::getList(['parentId' => 5]);
+
+        return $this->render('default/football.html.twig', [
+            'objectList' => $objects,
+        ]);
     }
-
-
+    
     public function showAction($id): Response
     {
         if (isset($id)) {
@@ -35,7 +39,7 @@ class DefaultController extends FrontendController
 
     public function footballAction(Request $request): Response
     {
-        $objects = Association::getList(['parentId' => 5]);
+        // $objects = Association::getList(['parentId' => 5]);
 
         // Objekt-ID des Pimcore-Objekts, das Sie anzeigen möchten
         // $objectId = 7;
@@ -48,17 +52,12 @@ class DefaultController extends FrontendController
         // $description = $object->getDescription();
         // $image = $object->getLogo();
 
-
-        return $this->render('default/football.html.twig', [
-            'objectList' => $objects,
-        ]);
-
-
         // Übergabe der Daten an die View
         // return $this->render('default/football.html.twig', [
         //     'name' => $name,
         //     // 'description' => $description,
         //     // 'image' => $image,
         // ]);
+        return null;
     }
 }

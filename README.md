@@ -13,6 +13,12 @@ Um das Programm zu installieren, müssen Sie zuerst das Repository klonen:
 
 `docker-compose up` 
 
+Danach sollte der localhost die Seite auf Port 80 ausgeben. 
+
+für den Login zum Backend gibt es einen Gastzugang.
+login: elements
+pw: x6d1b1E6d3K1b2I2
+
 **Import Excel Files**
 
 Um ein Excel File einzulesen müssen sie folgenden Command nutzen:
